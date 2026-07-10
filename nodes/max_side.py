@@ -21,4 +21,6 @@ class MaxSide:
         # IMAGE tensor shape: [batch, height, width, channels]
         img_height = image.shape[1]
         img_width = image.shape[2]
-        return (max(img_width, img_height),)
+        max_val = max(img_width, img_height)
+        rounded = round(max_val / 32) * 32
+        return (rounded,)
