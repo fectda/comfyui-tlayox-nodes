@@ -1,15 +1,14 @@
-"""Max Side — returns the larger of two dimensions."""
+"""Max Side — returns the longest side of an image."""
 
 
 class MaxSide:
-    """Returns the maximum of two integer values."""
+    """Returns the longest side of an image as an integer."""
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "new_width": ("INT", {"default": 1080, "min": 1}),
-                "new_height": ("INT", {"default": 1920, "min": 1}),
+                "image": ("IMAGE",),
             },
         }
 
@@ -18,5 +17,8 @@ class MaxSide:
     FUNCTION = "calculate"
     CATEGORY = "Tlayox/Utils"
 
-    def calculate(self, new_width, new_height):
-        return (max(new_width, new_height),)
+    def calculate(self, image):
+        # IMAGE tensor shape: [batch, height, width, channels]
+        img_height = image.shape[1]
+        img_width = image.shape[2]
+        return (max(img_width, img_height),)
