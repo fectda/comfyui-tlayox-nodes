@@ -6,7 +6,8 @@ from .nodes.instagram_preset_size import InstagramPresetSize
 from .nodes.max_side import MaxSide
 from .nodes.megapixel_calculator import MegapixelCalculator
 
-from .nodes.text_switch_4 import TextSwitch4
+from .nodes.text_switch_dynamic import TextSwitchDynamic
+from .nodes.text_combiner_8_views import TextCombiner8Views
 
 NODE_CLASS_MAPPINGS = {
     "InstagramPresetSize": InstagramPresetSize,
@@ -14,7 +15,8 @@ NODE_CLASS_MAPPINGS = {
     "CenterAlignCalculator": CenterAlignCalculator,
     "MegapixelCalculator": MegapixelCalculator,
     "MaxSide": MaxSide,
-    "TextSwitch4": TextSwitch4,
+    "TextSwitchDynamic": TextSwitchDynamic,
+    "TextCombiner8Views": TextCombiner8Views,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -23,8 +25,12 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CenterAlignCalculator": "🎯 Center Align Calculator",
     "MegapixelCalculator": "🔢 Megapixel Calculator",
     "MaxSide": "📊 Max Side",
-    "TextSwitch4": "🎨 Tlayox Styles Selector",
+    "TextSwitchDynamic": "🎨 Tlayox Styles Dynamic",
+    "TextCombiner8Views": "📝 Tlayox 8 Views Text",
 }
+
+WEB_DIRECTORY = "./web"
+
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 
