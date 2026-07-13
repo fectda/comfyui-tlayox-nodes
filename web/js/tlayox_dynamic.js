@@ -1,12 +1,39 @@
 const { app } = window.comfyAPI.app;
 
+const LABEL_MAP = {
+    "Visual_Prompt": "Visual Prompt",
+    "Atmosphere_Otra": "Atmosphere",
+    "Atmosphere_Tlayox": "Atmosphere",
+    "Atmosphere_Altepetl": "Atmosphere",
+    "Base_Format": "Base Format",
+    "Type_Photography": "Type",
+};
+
 app.registerExtension({
     name: "Tlayox.Dynamic",
+
+    async afterConfigureGraph() {
+        const graph = app.graph;
+        if (!graph) return;
+        const nodes = graph._nodes || graph.nodes || [];
+        for (const node of nodes) {
+            if (node.comfyClass !== "PromptBuilder") continue;
+            if (!node.widgets) continue;
+            for (const w of node.widgets) {
+                const cleanName = LABEL_MAP[w.name];
+                if (cleanName) {
+                    w.label = cleanName;
+                }
+            }
+        }
+        graph.setDirtyCanvas(true, true);
+    },
+
     async nodeCreated(node) {
         if (node.comfyClass !== "PromptBuilder") return;
 
         const WIDGET_DEFAULTS = {
-            Type_Photography: "Frame",
+            Type_Photography: "Macro",
             Atmosphere_Tlayox: "1- Tlayox",
             Atmosphere_Altepetl: "Ambar",
             Atmosphere_Otra: "",
@@ -14,6 +41,19 @@ app.registerExtension({
 
         const findWidget = (name) => {
             return node.widgets ? node.widgets.find(w => w.name === name) : null;
+        };
+
+        const applyLabels = () => {
+            if (!node.widgets) return;
+            for (const w of node.widgets) {
+                const cleanName = LABEL_MAP[w.name];
+                if (cleanName) {
+                    w.label = cleanName;
+                }
+            }
+            if (app.graph) {
+                app.graph.setDirtyCanvas(true, true);
+            }
         };
 
         const hideWidget = (w) => {
@@ -141,23 +181,8 @@ app.registerExtension({
                 }
             }
 
+            applyLabels();
             updateVisibility();
-
-            // Re-run after graph data is loaded (handles workflow restore)
-            if (app.graph) {
-                node._tlConfiguredListener = () => {
-                    updateVisibility();
-                };
-                app.graph.addEventListener("configured", node._tlConfiguredListener);
-            }
-
-            // Clean up listener when node is removed
-            node.onRemoved(() => {
-                if (app.graph && node._tlConfiguredListener) {
-                    app.graph.removeEventListener("configured", node._tlConfiguredListener);
-                    node._tlConfiguredListener = null;
-                }
-            });
         };
 
         setupNode();

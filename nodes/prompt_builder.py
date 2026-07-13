@@ -11,8 +11,8 @@ class PromptBuilder:
                     {"default": "Photography"},
                 ),
                 "Type_Photography": (
-                    ["Frame", "Context", "Conceptual"],
-                    {"default": "Frame"},
+                    ["Macro", "Context", "Conceptual"],
+                    {"default": "Macro"},
                 ),
                 "Brand": (["Tlayox", "Altepetl", "Otra"], {"default": "Tlayox"}),
                 "Atmosphere_Tlayox": (
@@ -75,12 +75,12 @@ class PromptBuilder:
         # 2. Type
         if Base_Format == "Photography":
             type_map = {
-                "Frame": "frame.md",
+                "Macro": "macro.md",
                 "Context": "context.md",
                 "Conceptual": "conceptual.md",
             }
             if Type_Photography not in type_map:
-                Type_Photography = "Frame"
+                Type_Photography = "Macro"
             type_file = type_map[Type_Photography]
         else:
             type_file = "screenshot.md"
