@@ -7,6 +7,12 @@ Custom nodes for ComfyUI by Tlayox.
 | Node | Category | Description |
 |------|----------|-------------|
 | 📐 Instagram Preset Size | Tlayox/Utils | Dropdown with Instagram aspect ratio presets. Outputs `width` and `height` as INT. |
+| 📏 Fit Size Calculator | Tlayox/Utils | Calculates how to fit an image or layer within a specific bounding size. |
+| 🎯 Center Align Calculator | Tlayox/Utils | Calculates the X and Y coordinates to center an object inside a background. |
+| 🔢 Megapixel Calculator | Tlayox/Utils | Scales image dimensions to match a target megapixel count. |
+| 📊 Max Side | Tlayox/Utils | Proportionally scales width and height so the maximum side matches a target value. |
+| 📝 Tlayox 8 Views Text | Tlayox | Text combiner designed to merge multiple viewpoints into a unified prompt. |
+| 🏗️ Tlayox Prompt Builder | Tlayox | Dynamically constructs prompts based on Brand, Atmosphere, Format, and Type from `.md` files. |
 
 ## Presets
 
