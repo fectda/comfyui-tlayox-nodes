@@ -1,0 +1,1 @@
+Bright, sanitary multi-point technical lighting with ALL sources off-camera: (1) Retro Mint (#73D2DE) soft key-light providing fresh, kinetic energy, (2) Industrial Technical Blue (#435466) sharp rim-light defining precise mold structures, (3) Interface White (#FDFEFE) bright ambient fill ensuring pristine clarity and clean visual separation on functional polymer cutting edges.

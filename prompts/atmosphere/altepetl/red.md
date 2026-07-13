@@ -1,0 +1,1 @@
+Set against a flawless pitch-black obsidian background (#050505) with subtle dark matte reflections. Complex multi-point lighting with ALL sources off-camera: (1) Deep crimson (#D4442F) hard key-light positioned to create stark red glows on geometric edges, (2) Precise red rim-light on the silhouette, (3) Subtle crimson fill light from the camera's axis to reveal textures.

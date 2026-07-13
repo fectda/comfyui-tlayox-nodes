@@ -1,0 +1,1 @@
+Flat, 2D high-fidelity digital interface display. The screen content fills the frame with pixel-perfect clarity and sharp contrast for social media viewing. Clean digital composition with zero physical workbench, avoiding any real-world camera lens reflections or depth of field blur.

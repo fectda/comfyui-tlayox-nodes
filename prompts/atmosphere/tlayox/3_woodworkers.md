@@ -1,0 +1,1 @@
+Complex multi-point technical lighting with ALL sources off-camera: (1) Warm Toasted Bamboo (#C49A6C) key-light providing a fresh, agile energy, (2) Industrial Technical Blue (#435466) hard rim-light outlining strict mechanical tolerances, (3) Clean practical fill light highlighting the functional integration of precise PETG polymer parts and raw wood textures.

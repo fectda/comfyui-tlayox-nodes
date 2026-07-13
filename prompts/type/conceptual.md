@@ -1,0 +1,1 @@
+Dramatic abstract composition, 50mm lens. Unconventional perspective emphasizing the imposing geometry and silhouette, prioritizing emotional visual awe of the

@@ -1,0 +1,1 @@
+Wide environmental shot, 35mm lens, f/8. The entire assembly and its immediate structural components are visible, demonstrating scale and layout of the

@@ -1,0 +1,1 @@
+Clean software interface, modern UI/UX design, clear digital data visualization.
