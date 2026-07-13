@@ -1,6 +1,5 @@
 """Instagram Preset Size node — dropdown selector for Instagram dimensions."""
 
-
 PRESETS = {
     "Stories & Reels (1080x1920 - 9:16)": (1080, 1920),
     "Feed Vertical (1080x1350 - 4:5)": (1080, 1350),

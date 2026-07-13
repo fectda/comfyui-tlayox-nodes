@@ -17,7 +17,7 @@ class TextCombiner8Views:
         "90_right_view",
         "90_left_view",
         "back_view",
-        "bottom_view"
+        "bottom_view",
     )
     FUNCTION = "combine"
     CATEGORY = "Tlayox"
@@ -31,12 +31,12 @@ class TextCombiner8Views:
             "90_right_view",
             "90_left_view",
             "back_view",
-            "bottom_view"
+            "bottom_view",
         ]
-        
+
         # If input is empty, maybe don't add joiner?
         # The logic is just text_input + joiner + suffix
         if text_input.strip() == "":
             return tuple(suffix for suffix in suffixes)
-            
+
         return tuple(f"{text_input}{joiner}{suffix}" for suffix in suffixes)

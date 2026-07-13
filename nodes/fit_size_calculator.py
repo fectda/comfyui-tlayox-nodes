@@ -23,8 +23,5 @@ class FitSizeCalculator:
         # IMAGE tensor shape: [batch, height, width, channels]
         img_height = image.shape[1]
         img_width = image.shape[2]
-        fit_size = int(
-            max(img_width, img_height)
-            * min(new_height / img_height, new_width / img_width)
-        )
+        fit_size = int(max(img_width, img_height) * min(new_height / img_height, new_width / img_width))
         return (fit_size,)
