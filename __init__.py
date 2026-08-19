@@ -7,6 +7,7 @@ from .nodes.max_side import MaxSide
 from .nodes.megapixel_calculator import MegapixelCalculator
 from .nodes.prompt_builder import PromptBuilder
 from .nodes.smart_expected_box import SmartExpectedBox
+from .nodes.smart_expected_box_debugger import SmartExpectedBoxDebugger
 from .nodes.text_combiner_8_views import TextCombiner8Views
 
 NODE_CLASS_MAPPINGS = {
@@ -18,6 +19,7 @@ NODE_CLASS_MAPPINGS = {
     "TextCombiner8Views": TextCombiner8Views,
     "PromptBuilder": PromptBuilder,
     "SmartExpectedBox": SmartExpectedBox,
+    "SmartExpectedBoxDebugger": SmartExpectedBoxDebugger,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -29,6 +31,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "TextCombiner8Views": "📝 Tlayox 8 Views Text",
     "PromptBuilder": "🏗️ Tlayox Prompt Builder",
     "SmartExpectedBox": "📦 Smart Expected Box",
+    "SmartExpectedBoxDebugger": "🐞 Smart Expected Box Debugger",
 }
 
 WEB_DIRECTORY = "./web"
