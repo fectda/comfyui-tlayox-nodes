@@ -47,3 +47,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -q -p no:cacheprovider --confcutdir=
 ```
 
 After restarting ComfyUI, confirm that the nodes appear under `Tlayox/Math` and `Tlayox/Debug`. `SmartExpectedBox` provides geometry and routing data; `SmartExpectedBoxDebugger` visualizes `BOX_DATA`. The current catalog does not include a crop, pad, or outpaint executor.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the standalone repository boundary and quality workflow.
