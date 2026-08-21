@@ -6,6 +6,7 @@ from .nodes.instagram_preset_size import InstagramPresetSize
 from .nodes.max_side import MaxSide
 from .nodes.megapixel_calculator import MegapixelCalculator
 from .nodes.prompt_builder import PromptBuilder
+from .nodes.smart_crop_extend import SmartCropExtend
 from .nodes.smart_expected_box import SmartExpectedBox
 from .nodes.smart_expected_box_debugger import SmartExpectedBoxDebugger
 from .nodes.text_combiner_8_views import TextCombiner8Views
@@ -18,6 +19,7 @@ NODE_CLASS_MAPPINGS = {
     "MaxSide": MaxSide,
     "TextCombiner8Views": TextCombiner8Views,
     "PromptBuilder": PromptBuilder,
+    "SmartCropExtend": SmartCropExtend,
     "SmartExpectedBox": SmartExpectedBox,
     "SmartExpectedBoxDebugger": SmartExpectedBoxDebugger,
 }
@@ -30,6 +32,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "MaxSide": "📊 Max Side",
     "TextCombiner8Views": "📝 Tlayox 8 Views Text",
     "PromptBuilder": "🏗️ Tlayox Prompt Builder",
+    "SmartCropExtend": "🖼️ Smart Crop Extend",
     "SmartExpectedBox": "📦 Smart Expected Box",
     "SmartExpectedBoxDebugger": "🐞 Smart Expected Box Debugger",
 }
