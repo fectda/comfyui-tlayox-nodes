@@ -1,4 +1,5 @@
 import torch
+from PIL import ImageDraw
 
 from nodes.smart_expected_box_debugger import SmartExpectedBoxDebugger
 
@@ -74,3 +75,36 @@ def test_smart_expected_box_debugger_draws_horizontal_and_vertical_guides():
 
     assert torch.equal(result[0, 15, 20], torch.tensor([1.0, 1.0, 0.0]))
     assert torch.equal(result[0, 20, 15], torch.tensor([0.0, 1.0, 1.0]))
+
+
+def test_smart_expected_box_debugger_bounds_giant_offscreen_geometry_before_pil_draw(monkeypatch):
+    node = SmartExpectedBoxDebugger()
+    image = torch.zeros((1, 32, 32, 3), dtype=torch.float32)
+    original = image.clone()
+    giant = 10**12
+    box_data = {
+        "detected_box": [-giant, -giant, 2 * giant, 2 * giant],
+        "safe_box": [-giant, -giant, 2 * giant, 2 * giant],
+        "expected_box": [-giant, -giant, 2 * giant, 2 * giant],
+        "composition_anchor_x": 0.5,
+        "composition_anchor_y": 0.5,
+    }
+
+    original_rectangle = ImageDraw.ImageDraw.rectangle
+    original_line = ImageDraw.ImageDraw.line
+
+    def bounded_rectangle(draw, coordinates, *args, **kwargs):
+        assert all(0 <= coordinate <= 31 for coordinate in coordinates)
+        return original_rectangle(draw, coordinates, *args, **kwargs)
+
+    def bounded_line(draw, coordinates, *args, **kwargs):
+        assert all(0 <= coordinate <= 31 for point in coordinates for coordinate in point)
+        return original_line(draw, coordinates, *args, **kwargs)
+
+    monkeypatch.setattr(ImageDraw.ImageDraw, "rectangle", bounded_rectangle)
+    monkeypatch.setattr(ImageDraw.ImageDraw, "line", bounded_line)
+
+    (result,) = node.draw(image, box_data)
+
+    assert result.shape == image.shape
+    assert torch.equal(image, original)

@@ -1,4 +1,8 @@
-"""Calculate aspect-ratio crop and extend routing around a detected box."""
+"""Calculate aspect-ratio crop and extend routing around a detected box.
+
+Routed output geometry is bounded to 16,000,000 pixels and 16,384 pixels per
+axis before downstream image nodes can allocate it.
+"""
 
 import math
 from numbers import Integral, Real
@@ -21,6 +25,9 @@ _COMPOSITION_ALIASES = {
     "Right": "center_right",
 }
 _MAX_CONTAINMENT_SEARCH_EXPANSIONS = 1024
+# Bound routed output geometry before downstream image nodes can allocate it.
+MAX_OUTPUT_PIXELS = 16_000_000
+MAX_OUTPUT_DIMENSION = 16_384
 
 
 def _validate_positive_integer(value, name):
@@ -218,6 +225,17 @@ class SmartExpectedBox:
                 lower_width = candidate_width + 1
 
         exp_left, exp_top, exp_w_int, exp_h_int, exp_right, exp_bottom = positioned_box(lower_width)
+        if exp_w_int > MAX_OUTPUT_DIMENSION or exp_h_int > MAX_OUTPUT_DIMENSION:
+            raise ValueError(
+                "SmartExpectedBox output dimension exceeds safe limit of "
+                f"{MAX_OUTPUT_DIMENSION:,} pixels (MAX_OUTPUT_DIMENSION={MAX_OUTPUT_DIMENSION})"
+            )
+        output_pixels = exp_w_int * exp_h_int
+        if output_pixels > MAX_OUTPUT_PIXELS:
+            raise ValueError(
+                "SmartExpectedBox output pixel count exceeds safe limit of "
+                f"{MAX_OUTPUT_PIXELS:,} pixels (MAX_OUTPUT_PIXELS={MAX_OUTPUT_PIXELS})"
+            )
         base_exp_left, base_exp_top, _, _, _, _ = positioned_box(base_exp_w)
 
         detected_left = math.floor(x1)

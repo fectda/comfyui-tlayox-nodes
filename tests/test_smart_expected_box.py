@@ -90,6 +90,53 @@ def test_smart_expected_box_needs_padding():
     assert box_data["expected_box"] == [-34, 25, 267, 150]
 
 
+@pytest.mark.parametrize(
+    "target_size, expected_output_size",
+    [
+        ((1080, 1920), [240, 427]),
+        ((1080, 1350), [240, 300]),
+        ((1080, 1080), [240, 240]),
+    ],
+)
+def test_smart_expected_box_preserves_standard_preset_geometry(target_size, expected_output_size):
+    target_w, target_h = target_size
+
+    result = SmartExpectedBox().calculate(
+        orig_w=1000,
+        orig_h=1000,
+        target_w=target_w,
+        target_h=target_h,
+        crop_box=[400, 400, 600, 600],
+        safety_padding_px=20,
+    )
+
+    assert result[-1]["output_size"] == expected_output_size
+
+
+def test_smart_expected_box_rejects_output_dimension_above_safe_limit():
+    with pytest.raises(ValueError, match="16,384"):
+        SmartExpectedBox().calculate(
+            orig_w=1,
+            orig_h=1,
+            target_w=1,
+            target_h=1,
+            crop_box=[0, 0, 1, 1],
+            safety_padding_px=8192,
+        )
+
+
+def test_smart_expected_box_rejects_output_pixel_count_above_safe_limit():
+    with pytest.raises(ValueError, match="16,000,000"):
+        SmartExpectedBox().calculate(
+            orig_w=1,
+            orig_h=1,
+            target_w=1,
+            target_h=1,
+            crop_box=[0, 0, 1, 1],
+            safety_padding_px=2500,
+        )
+
+
 def test_smart_expected_box_exposes_fixed_padding_input():
     required = SmartExpectedBox.INPUT_TYPES()["required"]
 

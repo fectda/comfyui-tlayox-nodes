@@ -331,23 +331,17 @@ def test_smart_expected_box_rejects_invalid_inputs(overrides):
         SmartExpectedBox().calculate(**inputs)
 
 
-def test_smart_expected_box_accepts_large_padding_and_routes_all_overflow_as_pad():
-    result = SmartExpectedBox().calculate(
-        orig_w=31,
-        orig_h=29,
-        target_w=9,
-        target_h=16,
-        crop_box=[10, 9, 21, 20],
-        safety_padding_px=10000,
-        composition="center_right",
-    )
-    values = result[:8]
-    box_data = result[-1]
-
-    assert all(isinstance(value, int) and value >= 0 for value in values)
-    assert box_data["requires_outpaint"] is True
-    assert sum(values[:4]) == 0
-    assert any(values[4:])
+def test_smart_expected_box_rejects_ui_domain_padding_that_exceeds_output_safety_limits():
+    with pytest.raises(ValueError, match="safe limit"):
+        SmartExpectedBox().calculate(
+            orig_w=31,
+            orig_h=29,
+            target_w=9,
+            target_h=16,
+            crop_box=[10, 9, 21, 20],
+            safety_padding_px=8192,
+            composition="center_right",
+        )
 
 
 def test_smart_expected_box_rejects_padding_that_cannot_be_represented_finitely():
