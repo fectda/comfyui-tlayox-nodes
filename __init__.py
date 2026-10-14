@@ -10,6 +10,7 @@ from .nodes.smart_crop_extend import SmartCropExtend
 from .nodes.smart_expected_box import SmartExpectedBox
 from .nodes.smart_expected_box_debugger import SmartExpectedBoxDebugger
 from .nodes.text_combiner_8_views import TextCombiner8Views
+from .nodes.video_dimensions import VideoDimensions
 
 NODE_CLASS_MAPPINGS = {
     "InstagramPresetSize": InstagramPresetSize,
@@ -22,6 +23,7 @@ NODE_CLASS_MAPPINGS = {
     "SmartCropExtend": SmartCropExtend,
     "SmartExpectedBox": SmartExpectedBox,
     "SmartExpectedBoxDebugger": SmartExpectedBoxDebugger,
+    "VideoDimensions": VideoDimensions,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -35,6 +37,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SmartCropExtend": "🖼️ Smart Crop Extend",
     "SmartExpectedBox": "📦 Smart Expected Box",
     "SmartExpectedBoxDebugger": "🐞 Smart Expected Box Debugger",
+    "VideoDimensions": "📹 Video Dimensions",
 }
 
 WEB_DIRECTORY = "./web"
