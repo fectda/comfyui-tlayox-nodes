@@ -2,7 +2,7 @@
 
 Covers exact photography options/default, valid selection preservation,
 neutral invalid-type fallback, Macro asset resolution, prompt assembly,
-and the established one-string tuple shape.
+and the established prompt/background-color tuple shape.
 
 No parent test imports. No Frame input, alias, or fixture.
 """
@@ -84,7 +84,7 @@ class TestValidSelectionPreservation:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         # context.md contains "35mm lens" — if resolved correctly, it appears
         assert "35mm lens" in result[0]
 
@@ -99,7 +99,7 @@ class TestValidSelectionPreservation:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         # conceptual.md contains "abstract composition" — resolved correctly
         assert "abstract composition" in result[0]
 
@@ -121,7 +121,7 @@ class TestNeutralInvalidFallback:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         # macro.md content includes "macro lens" — confirms Macro fallback
         assert "macro lens" in result[0]
 
@@ -136,7 +136,7 @@ class TestNeutralInvalidFallback:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         assert "macro lens" in result[0]
 
     def test_numeric_input_falls_back_to_macro(self, builder):
@@ -150,7 +150,7 @@ class TestNeutralInvalidFallback:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         assert "macro lens" in result[0]
 
 
@@ -171,7 +171,7 @@ class TestMacroAssetResolution:
             Atmosphere_Otra="",
             Visual_Prompt="",
         )
-        assert len(result) == 1
+        assert len(result) == 2
         # macro.md content: "Extreme forensic close-up, shot on 100mm macro lens"
         assert "Extreme forensic close-up" in result[0]
         assert "100mm macro lens" in result[0]
@@ -202,13 +202,13 @@ class TestMacroAssetResolution:
 
 
 # ---------------------------------------------------------------------------
-# Phase 1: Deterministic prompt assembly and one-string tuple shape
+# Phase 1: Deterministic prompt assembly and two-string tuple shape
 # ---------------------------------------------------------------------------
 class TestPromptAssemblyAndTupleShape:
-    """Prompt assembly joins parts correctly; return is a one-string tuple."""
+    """Prompt assembly joins parts correctly; return is a two-string tuple."""
 
-    def test_returns_one_string_tuple(self, builder):
-        """build_prompt returns a tuple containing exactly one string."""
+    def test_returns_prompt_and_background_color_tuple(self, builder):
+        """build_prompt returns prompt and background color strings."""
         result = builder.build_prompt(
             Base_Format="Photography",
             Type_Photography="Macro",
@@ -219,8 +219,8 @@ class TestPromptAssemblyAndTupleShape:
             Visual_Prompt="",
         )
         assert isinstance(result, tuple)
-        assert len(result) == 1
-        assert isinstance(result[0], str)
+        assert len(result) == 2
+        assert all(isinstance(value, str) for value in result)
 
     def test_visual_prompt_included_in_assembly(self, builder):
         """User Visual_Prompt is included in the assembled prompt."""

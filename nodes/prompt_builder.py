@@ -1,4 +1,8 @@
 import os
+import re
+
+_BACKGROUND_COLOR_PATTERN = re.compile(r"^#?([0-9a-fA-F]{6})$")
+_DEFAULT_BACKGROUND_COLOR = "#FFFFFF"
 
 
 class PromptBuilder:
@@ -25,11 +29,12 @@ class PromptBuilder:
                 ),
                 "Atmosphere_Otra": ("STRING", {"multiline": True, "default": ""}),
                 "Visual_Prompt": ("STRING", {"multiline": True, "default": ""}),
+                "Background_Color_Otra": ("STRING", {"default": ""}),
             }
         }
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("text",)
+    RETURN_TYPES = ("STRING", "COLORCODE")
+    RETURN_NAMES = ("text", "background_color")
     FUNCTION = "build_prompt"
     CATEGORY = "Tlayox"
 
@@ -58,6 +63,7 @@ class PromptBuilder:
         Atmosphere_Altepetl,
         Atmosphere_Otra,
         Visual_Prompt,
+        Background_Color_Otra="",
         **kwargs,
     ):
         # Fallback validation for Base_Format
@@ -120,5 +126,24 @@ class PromptBuilder:
         visual_cleaned = Visual_Prompt.strip() if Visual_Prompt else ""
         parts = [base_text, type_text, visual_cleaned, atmos_text, quality_text]
         final_prompt = " ".join([p for p in parts if p])
+        background_color = self._resolve_background_color(Brand, Background_Color_Otra)
 
-        return (final_prompt,)
+        return (final_prompt, background_color)
+
+    @staticmethod
+    def _normalize_background_color(value):
+        if not isinstance(value, str):
+            return _DEFAULT_BACKGROUND_COLOR
+
+        match = _BACKGROUND_COLOR_PATTERN.fullmatch(value.strip())
+        if not match:
+            return _DEFAULT_BACKGROUND_COLOR
+
+        return f"#{match.group(1).upper()}"
+
+    def _resolve_background_color(self, brand, custom_color):
+        if brand == "Altepetl":
+            return "#050505"
+        if brand == "Otra":
+            return self._normalize_background_color(custom_color)
+        return "#FDFEFE"
