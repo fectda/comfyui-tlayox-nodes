@@ -20,17 +20,6 @@ DEFAULT_OUTPAINT_CLIP = "qwen_3_8b_fp8mixed.safetensors"
 DEFAULT_OUTPAINT_VAE = "flux2-vae.safetensors"
 DEFAULT_OUTPAINT_SEED = 869001131783628
 SMART_EXPECTED_BOX_NODE_SIZE = (330, 450)
-COMPOSITION_POSITIONS = (
-    "top_left",
-    "top_center",
-    "top_right",
-    "center_left",
-    "center",
-    "center_right",
-    "bottom_left",
-    "bottom_center",
-    "bottom_right",
-)
 
 
 def _input(name: str, type_name: str, *, link: int | None = None, widget: bool = False) -> dict[str, Any]:
@@ -559,13 +548,6 @@ def build_workflow() -> dict[str, Any]:
             ],
             [DEFAULT_SAFETY_PADDING_PX, DEFAULT_COMPOSITION],
             3,
-            properties={
-                "composition_grid": {
-                    "type": "radio_grid",
-                    "positions": list(COMPOSITION_POSITIONS),
-                    "default": DEFAULT_COMPOSITION,
-                }
-            },
         ),
         _node(
             7,

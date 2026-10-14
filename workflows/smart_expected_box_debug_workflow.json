@@ -291,22 +291,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "SmartExpectedBox",
-        "composition_grid": {
-          "type": "radio_grid",
-          "positions": [
-            "top_left",
-            "top_center",
-            "top_right",
-            "center_left",
-            "center",
-            "center_right",
-            "bottom_left",
-            "bottom_center",
-            "bottom_right"
-          ],
-          "default": "center"
-        }
+        "Node name for S&R": "SmartExpectedBox"
       },
       "widgets_values": [
         20,

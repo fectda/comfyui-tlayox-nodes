@@ -23,18 +23,6 @@ REGISTERED_NODE_TYPES = {
 
 SQUARE_OUTPAINT_SUBGRAPH_ID = "fd81eb59-7179-4535-bb32-3a6893b83b54"
 
-CANONICAL_COMPOSITION_POSITIONS = [
-    "top_left",
-    "top_center",
-    "top_right",
-    "center_left",
-    "center",
-    "center_right",
-    "bottom_left",
-    "bottom_center",
-    "bottom_right",
-]
-
 
 def _normalise_node_id(value):
     return str(value)
@@ -292,11 +280,8 @@ def test_smart_expected_box_workflow_contract():
     assert composition_input["widget"] == {"name": "composition"}
     assert router_node["widgets_values"] == [20, "center"]
     assert router_node["size"][1] >= 450
-    assert router_node["properties"]["composition_grid"] == {
-        "type": "radio_grid",
-        "positions": CANONICAL_COMPOSITION_POSITIONS,
-        "default": "center",
-    }
+    assert "composition_grid" not in router_node["properties"]
+    assert "radio_grid" not in json.dumps(router_node)
 
     _assert_link(edges, image_loader, 0, size_node, {"image"})
     _assert_link(edges, image_loader, 0, rmbg, {"image"})
